@@ -48,7 +48,7 @@ int main()
 		// Run the algorithm
 		//FindCloestCPU(points, indexOfCloest, count);
 
-		FindCloestGPU<<<(count / 1024) + 1, 1024 >>>(d_points, d_indexOfCloest, count);
+		FindCloestGPU2<<<(count / 1024) + 1, 1024 >>>(d_points, d_indexOfCloest, count);
 		cudaMemcpy(indexOfCloest, d_indexOfCloest, sizeof(int)*count, cudaMemcpyDeviceToHost);
 
 		long finishTime = clock();
@@ -181,4 +181,31 @@ Final results:
 8.1654
 9.4205
 
+*/
+
+/*
+use FindCloestGPU2
+which use 1024 float3 shared memory
+Run 0 tooks 31 millis
+Run 1 tooks 47 millis
+Run 2 tooks 31 millis
+Run 3 tooks 47 millis
+Run 4 tooks 47 millis
+Run 5 tooks 31 millis
+Run 6 tooks 32 millis
+Run 7 tooks 31 millis
+Run 8 tooks 32 millis
+Run 9 tooks 41 millis
+Fastest time: 31
+Final results:
+0.2876
+1.6022
+2.5693
+3.4147
+4.6879
+5.5743
+6.9816
+7.5201
+8.6942
+9.4043
 */
